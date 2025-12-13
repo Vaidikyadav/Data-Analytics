@@ -1,48 +1,116 @@
+Clickstream Power BI Template
 
-Clickstream Power BI Template - Contents & Instructions
-------------------------------------------------------
+Contents and Build Instructions
 
-Files included:
-- theme.json             -> Power BI theme you can import (View -> Themes -> Browse for themes)
-- dax_measures.txt       -> All core DAX measures (copy & paste into your model)
-- powerquery_fWebEvents.m-> Example Power Query M script for loading fWebEvents.csv
-- clickstream_dataset.zip -> (separate download) contains all CSVs
+Files Included
 
-How to build the PBIX quickly:
-1. Open Power BI Desktop.
-2. Get Data -> Folder (or CSV) and point to the folder containing the CSVs from clickstream_dataset.zip.
-   - Load: fWebEvents.csv, fOrders.csv, dDate.csv, dUser.csv, dSession.csv, dProduct.csv, dDevice.csv
-3. In Power Query, apply the provided M script as a Reference or manually transform using the examples in powerquery_fWebEvents.m.
-   - Replace the file path placeholder with your CSV path if copying the script.
-4. Close & Apply.
-5. Model: create relationships:
-   - fWebEvents[UserID] -> dUser[UserID]
-   - fWebEvents[SessionID] -> dSession[SessionID]
-   - fOrders[SessionID] -> dSession[SessionID]
-   - fOrders[UserID] -> dUser[UserID]
-   - fWebEvents[Date] -> dDate[CalendarDate]
-6. Home -> Switch Theme -> Import theme.json.
-7. Create Measures: Copy measures from dax_measures.txt into new measures in Power BI.
-8. Build Pages:
-   - Page 1: Funnel Overview
-     * KPI cards (Sessions, Orders, Conversion Rate %, AOV, Cart Abandonment)
-     * Funnel visual / Sankey
-     * Slicers: Date, DeviceType, TrafficSource, Browser
-     * Table showing last page visited before abandonment
-   - Page 2: Traffic & Campaign Analysis
-     * Donut - Traffic Source
-     * Column - Conversion Rate by Campaign
-     * Line - Sessions over time
-     * Bar - CPA by Source
-   - Page 3: Drop-off Drill-through
-     * Table with SessionID, UserID, LastPageVisited, EventTimestamp
-     * Configure drill-through on EventName or Funnel Stage
-9. Optional:
-   - Add bookmarks for navigation
-   - Use tooltips to show % drop-off between funnel stages
-   - Publish to Power BI Service and schedule refresh
+theme.json – Custom Power BI theme
+(Import via View → Themes → Browse for themes)
 
-If you'd like, I can:
-- Generate a zip that includes these template files (theme, DAX, PQ M) — already prepared.
-- Produce mockup PNG images for each report page.
+dax_measures.txt – Predefined DAX measures
 
+powerquery_fWebEvents.m – Sample Power Query (M) script for loading fWebEvents.csv
+
+clickstream_dataset.zip (separate download) – Contains all required CSV files
+
+Steps to Build the Power BI Report (PBIX)
+1. Load Data
+
+Open Power BI Desktop.
+
+Select Get Data → Folder (or CSV) and choose the folder containing the extracted CSV files.
+
+Load the following tables:
+
+fWebEvents.csv
+
+fOrders.csv
+
+dDate.csv
+
+dUser.csv
+
+dSession.csv
+
+dProduct.csv
+
+dDevice.csv
+
+2. Transform Data (Power Query)
+
+Open Power Query Editor.
+
+Apply the provided M script (powerquery_fWebEvents.m) as a Reference, or manually replicate the transformations.
+
+If copying the script, replace the file path placeholder with your local CSV path.
+
+Select Close & Apply.
+
+3. Create Data Model Relationships
+
+Define the following relationships:
+
+fWebEvents[UserID] → dUser[UserID]
+
+fWebEvents[SessionID] → dSession[SessionID]
+
+fOrders[SessionID] → dSession[SessionID]
+
+fOrders[UserID] → dUser[UserID]
+
+fWebEvents[Date] → dDate[CalendarDate]
+
+4. Apply Theme
+
+Go to Home → Switch Theme → Import Theme
+
+Select theme.json
+
+5. Create Measures
+
+Copy the DAX formulas from dax_measures.txt
+
+Create new measures in Power BI using these definitions
+
+Report Pages to Build
+Page 1: Funnel Overview
+
+Visuals
+
+KPI Cards:
+
+Sessions
+
+Orders
+
+Conversion Rate (%)
+
+Average Order Value (AOV)
+
+Cart Abandonment Rate
+
+Funnel or Sankey visual (user journey)
+
+Table: Last page visited before abandonment
+
+Slicers
+
+Date
+
+Device Type
+
+Traffic Source
+
+Browser
+
+Page 2: Traffic & Campaign Analysis
+
+Visuals
+
+Donut Chart: Traffic Source distribution
+
+Column Chart: Conversion Rate by Campaign
+
+Line Chart: Sessions over time
+
+Bar Chart: Cost per Acquisition (CPA) by Source
