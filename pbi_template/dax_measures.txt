@@ -1,0 +1,43 @@
+
+-- CORE DAX MEASURES for Clickstream Dashboard
+
+Sessions =
+DISTINCTCOUNT(fWebEvents[SessionID])
+
+Orders =
+DISTINCTCOUNT(fOrders[OrderID])
+
+Conversion Rate % =
+DIVIDE([Orders], [Sessions], 0)
+
+Add to Cart =
+CALCULATE(COUNTROWS(fWebEvents), FILTER(fWebEvents, fWebEvents[EventName] = "AddToCart"))
+
+Checkout Started =
+CALCULATE(COUNTROWS(fWebEvents), FILTER(fWebEvents, fWebEvents[EventName] = "CheckoutStart"))
+
+Purchase Count = [Orders]
+
+Cart Abandonment Rate % =
+VAR ATC = [Add to Cart]
+VAR PUR = [Purchase Count]
+RETURN IF(ATC = 0, 0, DIVIDE(ATC - PUR, ATC))
+
+AOV =
+DIVIDE(SUM(fOrders[OrderValue]), [Orders])
+
+-- Example: Sessions by Funnel Step (measure used for Sankey / Funnel)
+Funnel Stage Sessions =
+SWITCH(
+    SELECTEDVALUE(fWebEvents[EventName]),
+    "Homepage", CALCULATE([Sessions], fWebEvents[EventName]="Homepage"),
+    "ProductView", CALCULATE([Sessions], fWebEvents[EventName]="ProductView"),
+    "AddToCart", CALCULATE([Sessions], fWebEvents[EventName]="AddToCart"),
+    "CheckoutStart", CALCULATE([Sessions], fWebEvents[EventName]="CheckoutStart"),
+    "Purchase", [Orders],
+    BLANK()
+)
+
+-- CPA requires marketing cost column; example:
+CPA =
+DIVIDE(SUM(fWebEvents[MarketingCost]), [Orders], 0)

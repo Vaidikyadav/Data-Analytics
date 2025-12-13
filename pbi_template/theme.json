@@ -1,0 +1,16 @@
+{
+  "name": "Clickstream Ecom Theme",
+  "dataColors": [
+    "#0063B2",
+    "#00A676",
+    "#FF7A00",
+    "#E4E4E4",
+    "#7F7F7F",
+    "#3A8FB7",
+    "#B2006B"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#222222",
+  "tableAccent": "#0063B2",
+  "visualStyles": {}
+}
